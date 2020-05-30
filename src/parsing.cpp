@@ -30,7 +30,7 @@ int     instructionParsing(std::string &line)
         "int8", "int16",
         "int32", "float"
         "double" };
-
+    return (0);    
 }
 
 bool    parsing(std::string &line)
