@@ -9,5 +9,7 @@ class instructions
         instructions(instructions const &name);
         instructions &operator=(instructions const &name);
 
+    private:
+        _stack
 };
 #endif

@@ -1,6 +1,9 @@
-#include "dispatch.hpp"
+#include "vm.hpp"
+#include "stack.hpp"
+//#include "instructions.hpp"
 
-dispatch::dispatch(void)
+void    instructions(std::list<std::string> board)
 {
+    stack Stack;
 
 }
