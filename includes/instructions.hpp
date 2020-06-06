@@ -8,8 +8,6 @@ class instructions
         virtual ~instructions(void);
         instructions(instructions const &name);
         instructions &operator=(instructions const &name);
-
-    private:
-        _stack
+        
 };
 #endif

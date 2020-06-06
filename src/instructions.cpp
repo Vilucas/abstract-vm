@@ -2,8 +2,15 @@
 #include "stack.hpp"
 //#include "instructions.hpp"
 
-void    instructions(std::list<std::string> board)
+void    instructions(linesManagement lm)
 {
-    stack Stack;
+    print(lm.line_count);
+    std::map< std::string, std::function<void(stack)>> dispatchTable;
+/*
+    dispatchTable = {
+        {"add", stack::add()},
+        {"div", stack::div()}
+    };
+*/
 
 }

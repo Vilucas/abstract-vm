@@ -20,7 +20,6 @@ class LexicalErrorException: public std::exception
             return(msg.c_str());
         }
         //virtual ~LexicalErrorException() _NOEXCEPT;
-
 };
 
 class NoExitException: public std::exception

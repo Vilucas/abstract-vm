@@ -4,8 +4,9 @@
 
 class stack
 {
+
 private:
-    std::list<IOperand const*> _Stack;
+    //std::list<IOperand const*> _Stack;
 
 public:
     stack();
