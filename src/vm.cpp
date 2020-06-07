@@ -44,6 +44,7 @@ int main(int argc, char ** argv)
         if (parsing(lm.line) == true)
             lm.rawInstructionsBoard = instructionParsing(lm);
             instructions(lm);
+        lm.line_count += 1;
     }
     noExit();
     return (0);

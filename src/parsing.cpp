@@ -20,7 +20,10 @@ bool    commentParsing(std::string &line)
 
 bool    parsing(std::string &line)
 {
-    if (commentParsing(line) == false)
-        return false;    
+    if (commentParsing(line) == false)              // comments removing 
+        return false;
+    if (countSpacesAhead(line, 0) == line.size())   // return line full of spaces ? false : true
+        return false;
+    std::cout << "line in parsing = " << line << std::endl;
     return true;
 }

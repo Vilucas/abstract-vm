@@ -12,6 +12,7 @@
 #include <functional>
 #include "exception.hpp"
 
+#include "Int8.hpp"
 
 
 class    linesManagement
@@ -27,4 +28,5 @@ class    linesManagement
 bool    parsing(std::string &line);
 std::list<std::string>  instructionParsing(linesManagement lm);
 void    instructions(linesManagement lm);
+size_t countSpacesAhead(std::string tmp_line, size_t pos);
 #endif

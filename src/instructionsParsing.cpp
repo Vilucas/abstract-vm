@@ -23,7 +23,17 @@ std::list<std::string>  splitString(std::string line)
     }
     return (ret);
 }
+/* pseudo code for parsing after important part
+void    checktype
+std::list<std::string> typeBoard = {
+        "int8", "int16", 
+        "int32", "float",
+        "double" };
 
+    if ret[0] diff of the two isntructions thatb take param -> false
+    if ret[1] is ot a correct type -> false
+    if whats insine the ret[1] parenthesis is bullshit -> false
+*/
 std::list<std::string>     slicingBySpaces(linesManagement lm)
 {
     std::list<std::string> instructionBoard = { "push", "pop",
@@ -32,24 +42,20 @@ std::list<std::string>     slicingBySpaces(linesManagement lm)
         "mul", "div",
         "mod", "print",
         "exit" };
- 
-    std::list<std::string> typeBoard = {
-        "int8", "int16", 
-        "int32", "float",
-        "double" };
+
     std::cout << "line = '" << lm.line << "'" << std::endl;
     std::list<std::string> ret = splitString(lm.line);
-    std::list<std::string>::iterator it;
+    std::list<std::string>::iterator it = ret.begin();
+
+  //  if (ret.size() > 1)
+//     CheckTypes(lm, ret)
     if (ret.size() > 2)
         throw(LexicalErrorException(std::to_string(lm.line_count)));
-    for (it = ret.begin(); it != ret.end(); it++)
-    {
-        //std::cout << *it;
-        bool found = (std::find(instructionBoard.begin(), instructionBoard.end(), *it) != instructionBoard.end());
-        if (!found)
+    bool found;
+    if ((found = std::find(instructionBoard.begin(), 
+        instructionBoard.end(), *it) != instructionBoard.end()) == false)
             throw(LexicalErrorException(std::to_string(lm.line_count)));
-        std::cout << " = " << found << std::endl;
-    }
+    std::cout << *it << found << std::endl;
     return ret;   
 }
 std::list<std::string>  instructionParsing(linesManagement lm)

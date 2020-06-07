@@ -1,20 +1,20 @@
-#ifdef INT_8
-#define INT_8
+#ifndef INT8_HPP
+#define INT8_HPP
 
 #include "Master.hpp"
 
-class Int_8:  public IOperand
+class Int8:  public Operators
 {
-    private:
-        Int_8();
-        ~Int_8();
-        Int_8(Int_8 const &e);
-        Int_8 &operator=(Int_8 const &e);
-
     public:
-        virtual e0perandType getType(void);
-        virtual int getPrecision(void);
-
+        Int8() {}
+        ~Int8() {}
+        
+        Int8(Int8 const &e);
+        Int8 &operator=(Int8 const &e);
+    
+    private:
+        virtual eOperandType getType(void) const {return eOperandType::Int8;}
+        virtual int getPrecision(void) const {return (0);}
 };
 
 #endif
