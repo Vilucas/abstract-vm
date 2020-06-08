@@ -9,6 +9,7 @@ SRC = vm.cpp \
 		stack.cpp \
 		allowedVarTypes/Int8.cpp \
 		allowedVarTypes/Master.cpp \
+		allowedVarTypes/Operators.cpp
 
 INCLUDE = 	vm.hpp \
 			exception.hpp \
