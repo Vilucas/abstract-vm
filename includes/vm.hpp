@@ -12,8 +12,7 @@
 #include <functional>
 #include "exception.hpp"
 
-#include "Int8.hpp"
-
+#include "stack.hpp"
 
 class    linesManagement
 {
@@ -27,6 +26,6 @@ class    linesManagement
 #define usage "[usage]: ./abstracrt_vm path_to_instructions_file"
 bool    parsing(std::string &line);
 std::list<std::string>  instructionParsing(linesManagement lm);
-void    instructions(linesManagement lm);
+void    instructions(linesManagement lm, stack Stack);
 size_t countSpacesAhead(std::string tmp_line, size_t pos);
 #endif

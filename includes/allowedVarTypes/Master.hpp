@@ -11,14 +11,12 @@ enum eOperandType {
     Int_32,
     Float_ = 7,
     Double_ = 15
-
 };
 
 class IOperand {
     public:
         virtual int getPrecision( void ) const = 0; // Precision of the type of the instance
         virtual eOperandType getType( void ) const = 0; // Type of the instance
-      
         virtual IOperand const * operator+( IOperand const & rhs ) const = 0; // Sum
         /*
         virtual IOperand const * operator-( IOperand const & rhs ) const = 0; // Difference
@@ -28,12 +26,6 @@ class IOperand {
         virtual std::string const & toString( void ) const = 0; // String representation of the instance
         */
         virtual ~IOperand( void );
-        IOperand const * createOperand( eOperandType type, std::string const & value ) const;
-    
-    private:
-        IOperand const * createInt8( std::string const & value ) const;
-
-    protected:        
         IOperand( void );
         IOperand(IOperand const &src);
         IOperand &operator=(IOperand const &e);

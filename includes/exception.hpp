@@ -30,4 +30,30 @@ class NoExitException: public std::exception
         }
 };
 
+class PopWithEmptyStackException : public std::exception
+{
+    public:
+        virtual const char * what() const throw() {
+            return ("Trying to pop item in an empty stack, Exiting...");
+        }
+
+};
+
+class AssertErrorException : public std::exception
+{
+    public:
+        virtual const char * what() const throw() {
+            return ("Error: Assert error, Exiting...");
+        }
+}
+
+class AddErrorException : public std::exception
+{
+    public:
+        virtual const char * what() const throw() {
+            return ("Error: add() on a stack with less than two items, Exiting...")
+        }
+
+}
+
 #endif

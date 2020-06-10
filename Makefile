@@ -7,9 +7,10 @@ SRC = vm.cpp \
 		instructions.cpp \
 		instructionsParsing.cpp \
 		stack.cpp \
-		allowedVarTypes/Int8.cpp \
+		allowedVarTypes/variableDefinition.cpp \
 		allowedVarTypes/Master.cpp \
-		allowedVarTypes/Operators.cpp
+		allowedVarTypes/Operators.cpp \
+		allowedVarTypes/Factory.cpp \
 
 INCLUDE = 	vm.hpp \
 			exception.hpp \

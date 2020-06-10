@@ -43,7 +43,7 @@ int main(int argc, char ** argv)
         std::cout << "original line = '" << lm.line << "'"  << std::endl;
         if (parsing(lm.line) == true)
             lm.rawInstructionsBoard = instructionParsing(lm);
-            instructions(lm);
+            instructions(lm, Stack);
         lm.line_count += 1;
     }
     noExit();

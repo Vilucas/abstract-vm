@@ -28,12 +28,8 @@ void    somefct()
     return;
 }
 
-
-
-
 IOperand const * IOperand::createOperand(eOperandType type, std::string const & value ) const 
 {
-    (void)type;
     (void)value;
     //DO THE FUNCTION TO ENABLE THE TAB :)
     /*
