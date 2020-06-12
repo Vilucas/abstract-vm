@@ -24,6 +24,5 @@ bool    parsing(std::string &line)
         return false;
     if (countSpacesAhead(line, 0) == line.size())   // return line full of spaces ? false : true
         return false;
-    std::cout << "line in parsing = " << line << std::endl;
     return true;
 }

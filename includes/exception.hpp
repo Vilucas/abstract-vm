@@ -1,6 +1,8 @@
 #ifndef EXCEPTIONS_HPP
 #define EXCEPTIONS_HPP
 
+#include <iostream>
+
 class OpenFailException: public std::exception
 {
     public:
@@ -14,12 +16,15 @@ class LexicalErrorException: public std::exception
     std::string msg;
     public:
         
-        LexicalErrorException(const std::string &line_number)  : msg(std::string("Lexical error occured at line ") + line_number + ", Exiting ...")
-        {}
+        LexicalErrorException(size_t line_number)
+        {
+            std::string new_line = std::to_string(line_number);
+            msg = std::string("Lexical error occured at line ") + new_line + ", Exiting ..."; 
+        }
         virtual const char* what() const throw() {
             return(msg.c_str());
         }
-        //virtual ~LexicalErrorException() _NOEXCEPT;
+        virtual ~LexicalErrorException(){};
 };
 
 class NoExitException: public std::exception
@@ -45,15 +50,30 @@ class AssertErrorException : public std::exception
         virtual const char * what() const throw() {
             return ("Error: Assert error, Exiting...");
         }
-}
+};
 
 class AddErrorException : public std::exception
 {
     public:
         virtual const char * what() const throw() {
-            return ("Error: add() on a stack with less than two items, Exiting...")
+            return ("Error: add() on a stack with less than two items, Exiting...");
         }
 
-}
+};
 
+class OverflowErrorException : public std::exception
+{
+    public:
+        virtual const char * what() const throw() {
+            return ("Overflow error, Exiting...");
+        }
+};
+
+class UnderflowErrorException : public std::exception
+{
+    public:
+        virtual const char * what() const throw() {
+            return ("Underflow error, Exiting...");
+        } 
+};
 #endif

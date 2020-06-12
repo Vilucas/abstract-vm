@@ -1,4 +1,5 @@
 #include "vm.hpp"
+#include <list>
 
 size_t countSpacesAhead(std::string tmp_line, size_t pos)
 {
@@ -8,10 +9,10 @@ size_t countSpacesAhead(std::string tmp_line, size_t pos)
     return ret;
 }
 
-std::list<std::string>  splitString(std::string line)
+std::vector<std::string>  splitString(std::string line)
 {
     size_t pos = 0;
-    std::list<std::string> ret;
+    std::vector<std::string> ret;
     std::string token;
     while (line[0] && line[0] == ' ')
         line.erase(0, 1);
@@ -23,23 +24,17 @@ std::list<std::string>  splitString(std::string line)
     }
     return (ret);
 }
-
+/*
 void    checkType(std::list<std::string> ret)
 {
-    std::list<std::string> typeBoard = {
-        "int8(", "int16(", 
-        "int32(", "float(",
-        "double(" };
-    
 
-    /*
     if ret[0] diff of the two isntructions thatb take param -> false
     if ret[1] is not a correct type -> false
     if whats insine the ret[1] parenthesis is bullshit -> false
     */
-}
 
-std::list<std::string>     slicingBySpaces(linesManagement lm)
+
+std::vector<std::string>     slicingBySpaces(linesManagement lm)
 {
     std::list<std::string> instructionBoard = { "push", "pop",
         "dump", "assert",
@@ -48,23 +43,23 @@ std::list<std::string>     slicingBySpaces(linesManagement lm)
         "mod", "print",
         "exit" };
     
-    std::cout << "line = '" << lm.line << "'" << std::endl;
-    std::list<std::string> ret = splitString(lm.line);
-    std::list<std::string>::iterator it = ret.begin();
+    std::vector<std::string> ret = splitString(lm.line);
+    std::vector<std::string>::iterator it = ret.begin();
 
     if (ret.size() > 2)
-        throw(LexicalErrorException(std::to_string(lm.line_count)));
+        throw(LexicalErrorException(lm.line_count));
     bool found;
     if ((found = std::find(instructionBoard.begin(), 
         instructionBoard.end(), *it) != instructionBoard.end()) == false)
-            throw(LexicalErrorException(std::to_string(lm.line_count)));
-    std::cout << *it << found << std::endl;
+            throw(LexicalErrorException(lm.line_count));
+    //std::cout << *it << found << std::endl;
     return ret;   
 }
-std::list<std::string>  instructionParsing(linesManagement lm)
+
+std::vector<std::string>  instructionParsing(linesManagement lm)
 {
     try {
-        std::list<std::string> board = slicingBySpaces(lm);
+        std::vector<std::string> board = slicingBySpaces(lm);
         return (board);
     }
     catch (LexicalErrorException &e) {

@@ -40,11 +40,13 @@ int main(int argc, char ** argv)
     checkArg(fd, argc, argv);
     while (std::getline(fd,  lm.line))
     {
-        std::cout << "original line = '" << lm.line << "'"  << std::endl;
-        if (parsing(lm.line) == true)
-            lm.rawInstructionsBoard = instructionParsing(lm);
-            instructions(lm, Stack);
         lm.line_count += 1;
+        if (parsing(lm.line) == true)
+        {
+            lm.rawInstructionsBoard = instructionParsing(lm);
+            print("Pass Parsing");
+            instructions(lm, Stack);
+        }
     }
     noExit();
     return (0);

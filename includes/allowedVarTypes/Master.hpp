@@ -9,8 +9,8 @@ enum eOperandType {
     Int_8 , 
     Int_16,
     Int_32,
-    Float_ = 7,
-    Double_ = 15
+    Float_,
+    Double_
 };
 
 class IOperand {
@@ -23,8 +23,9 @@ class IOperand {
         virtual IOperand const * operator*( IOperand const & rhs ) const = 0; // Product
         virtual IOperand const * operator/( IOperand const & rhs ) const = 0; // Quotient
         virtual IOperand const * operator%( IOperand const & rhs ) const = 0; // Modulo
-        virtual std::string const & toString( void ) const = 0; // String representation of the instance
         */
+        virtual std::string const & toString( void ) const = 0; // String representation of the instance
+        
         virtual ~IOperand( void );
         IOperand( void );
         IOperand(IOperand const &src);

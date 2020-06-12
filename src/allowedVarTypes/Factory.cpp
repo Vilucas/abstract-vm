@@ -1,6 +1,16 @@
 #include "Factory.hpp"
+#include "exception.hpp"
+#include <limits>
+#include <math.h>
+#include <float.h>
 
-Factory::Factory (){}
+Factory::Factory () {
+    this->_table.insert(std::make_pair(eOperandType::Int_8, &Factory::createInt8));
+    this->_table.insert(std::make_pair(eOperandType::Int_16, &Factory::createInt16));
+    this->_table.insert(std::make_pair(eOperandType::Int_32, &Factory::createInt32));
+    this->_table.insert(std::make_pair(eOperandType::Float_, &Factory::createFloat));
+    this->_table.insert(std::make_pair(eOperandType::Double_, &Factory::createDouble));
+}
 
 Factory::~Factory(){}
 
@@ -11,23 +21,87 @@ Factory const &Factory::operator=(Factory const &rhs){
     return *this;
 }
 
+template<typename T>
+void             TestOverflows(std::string const & value)
+{
+    try { //Testing overflow and underflow for the given type
+        if (static_cast<T>(std::stod(value)) > std::numeric_limits<T>::max())
+            throw(OverflowErrorException());
+        if (static_cast<T>(std::stod(value)) < std::numeric_limits<T>::min())
+            throw(UnderflowErrorException());
+    }
+    catch (OverflowErrorException &e) {
+        std::cout << e.what() << std::endl;
+        exit(1);
+    }
+    catch (UnderflowErrorException &e) {
+        std::cout << e.what() << std::endl;
+        exit(1);
+    }
+}
+
 IOperand const *Factory::createInt8(std::string const & value) const {
+    TestOverflows<int8_t>(value);
     IOperand *a = new Int8(value);
     return a;
 }
 
-IOperand const *Factory::createOperand(eOperandType type, std::string const & value) const {
-    
-    IOperand const * ret;
-    
-    std::map<eOperandType, Factory::createInt16 > table {
-        {eOperandType::Int_8, &Factory::createInt8 }
-    };
+IOperand const *Factory::createInt16(std::string const & value) const {
+    TestOverflows<int16_t>(value);
+    IOperand *a = new Int16(value);
+    return a;
+}
 
-    for (auto x : table)
-    {
-        if (x.first == type)
-            return x.second(value);
+IOperand const *Factory::createInt32(std::string const & value) const {
+    TestOverflows<int32_t>(value);
+    IOperand *a = new Int32(value);
+    return a;
+}
+
+IOperand const *Factory::createFloat(std::string const & value) const {
+    try{
+        if (std::stod(value) > FLT_MAX)
+            throw(OverflowErrorException());
+        if (std::stod(value) < -(FLT_MAX + 1))
+            throw(UnderflowErrorException());
     }
-    return NULL;
+    catch(OverflowErrorException &s)
+    {
+        std::cout << s.what() << std::endl;
+        exit(1);
+    }
+    catch(UnderflowErrorException &s)
+    {
+        std::cout << s.what() << std::endl;
+        exit(1);
+    }
+    IOperand *a = new Float(value);
+    return a;
+}
+
+IOperand const *Factory::createDouble(std::string const & value) const {
+    try {
+        if (std::stod(value) > DBL_MAX)
+            throw(OverflowErrorException());
+        if (std::stod(value) < -(DBL_MAX + 1))
+            throw(UnderflowErrorException());
+    }
+    catch(OverflowErrorException &s)
+    {
+        std::cout << s.what() << std::endl;
+        exit(1);
+    }
+    catch(UnderflowErrorException &s)
+    {
+        std::cout << s.what() << std::endl;
+        exit(1);
+    }
+    IOperand *a = new Double(value);
+    return a;
+}
+
+IOperand const *Factory::createOperand(eOperandType type, std::string const & value) const {
+    std::cout << value <<  std::endl;
+    IOperand const *ret = (*this.*_table.at(type))(value);
+    return ret;
 }
