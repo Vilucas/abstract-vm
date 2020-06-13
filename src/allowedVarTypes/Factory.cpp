@@ -25,9 +25,9 @@ template<typename T>
 void             TestOverflows(std::string const & value)
 {
     try { //Testing overflow and underflow for the given type
-        if (static_cast<T>(std::stod(value)) > std::numeric_limits<T>::max())
+        if ((static_cast<T>(std::stod(value))) > (std::numeric_limits<T>::max()))
             throw(OverflowErrorException());
-        if (static_cast<T>(std::stod(value)) < std::numeric_limits<T>::min())
+        if ((static_cast<T>(std::stod(value))) < (std::numeric_limits<T>::min()))
             throw(UnderflowErrorException());
     }
     catch (OverflowErrorException &e) {
@@ -58,7 +58,7 @@ IOperand const *Factory::createInt32(std::string const & value) const {
     return a;
 }
 
-IOperand const *Factory::createFloat(std::string const & value) const {
+IOperand const *Factory::createFloat(std::string const & value) const {    
     try{
         if (std::stod(value) > FLT_MAX)
             throw(OverflowErrorException());
@@ -101,7 +101,5 @@ IOperand const *Factory::createDouble(std::string const & value) const {
 }
 
 IOperand const *Factory::createOperand(eOperandType type, std::string const & value) const {
-    std::cout << value <<  std::endl;
-    IOperand const *ret = (*this.*_table.at(type))(value);
-    return ret;
+    return (*this.*_table.at(type))(value);
 }

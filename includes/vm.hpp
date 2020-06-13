@@ -1,6 +1,9 @@
 #ifndef VM_HPP
 #define VM_HPP
 
+#define print(n) (std::cout << "value = '" << n << "'" << std::endl)
+#define usage "[usage]: ./abstracrt_vm path_to_instructions_file"
+
 #include <unistd.h>
 #include <vector>
 #include <algorithm>
@@ -21,11 +24,9 @@ class    linesManagement
         size_t line_count;
 };
 
-#define print(n) (std::cout << "value = '" << n << "'" << std::endl)
-#define usage "[usage]: ./abstracrt_vm path_to_instructions_file"
+
 bool    parsing(std::string &line);
 std::vector<std::string>  instructionParsing(linesManagement lm);
-void    instructions(linesManagement lm, stack &Stack);
 size_t countSpacesAhead(std::string tmp_line, size_t pos);
 
 #endif

@@ -3,10 +3,10 @@ NAME = abstract_vm
 FLAGS = -std=c++2a -Wall -Wextra -Werror
 
 SRC = vm.cpp \
-		parsing.cpp \
-		instructions.cpp \
-		instructionsParsing.cpp \
-		stack.cpp \
+		parsing/parsing.cpp \
+		parsing/instructionsParsing.cpp \
+		stack/stack.cpp \
+		stack/launcher.stack.cpp \
 		allowedVarTypes/variableDefinition.cpp \
 		allowedVarTypes/Master.cpp \
 		allowedVarTypes/Operators.cpp \

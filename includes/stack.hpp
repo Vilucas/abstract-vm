@@ -1,32 +1,45 @@
 #ifndef STACK_HPP
 #define STACK_HPP
+
+#include "vm.hpp"
 #include "Master.hpp"
-#include <vector>
+#include <list>
+#include <map>
+
+class linesManagement;
 
 class stack
 {
     public:
-        void push(std::vector<std::string> &rawInstructionsBoard, size_t lineCount);
-        void vmExit() const ;
+        void push(linesManagement &lm);
+        void vmExit();
         void pop();
-        void dump() const ;
-
-        //void (assert)(std::vector<std::string> &rawInstructionsBoard, size_t lineCount);
+        void dump();
+        void (assert)(linesManagement &lm);
+        void (print)(void);
+        
+        void add();
         /*
-        void add(std::string const value) const;
-        void sub(void) const;
-        void mul(void) const;
-        void div(void) const;
-        void mod(void) const;
-        void print(void) const;
+        void sub(void);
+        void mul(void);
+        void div(void);
+        void mod(void);
         */
         stack();
         stack(stack const &s);
         stack & operator=(stack const &src);
         virtual ~stack();
+        void    launcher(linesManagement lm);
 
-        private:
-            std::vector<IOperand const *> _stack;
+    private:
+        std::list<IOperand const *> _stack;
+        std::map <const char *, void ((stack::*)(void)) > _dispatchTable {
+                {"exit", &stack::vmExit},
+                {"pop", &stack::pop},
+                {"dump", &stack::dump},
+                {"print", &stack::print},
+                {"add", &stack::add},
+        };
 };
 
 #endif

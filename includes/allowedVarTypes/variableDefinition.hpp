@@ -14,8 +14,9 @@ class Int8 : public Operators
         Int8 &operator=(Int8 const &e);
     
     private:
-        std::string _value;
-        virtual std::string const & toString(void) const {return _value;}
+        int8_t _value;
+        std::string _strValue;
+        virtual std::string const & toString(void) const {return _strValue;}
         virtual eOperandType getType(void) const {return eOperandType::Int_8;}
         virtual int getPrecision(void) const {return (0);}
 };
@@ -30,8 +31,9 @@ class Int16 : public Operators
         Int16 &operator=(Int16 const &e);
     
     private:
-        std::string _value;
-        virtual std::string const &toString(void) const {return _value;}
+        int16_t _value;
+        std::string _strValue;
+        virtual std::string const &toString(void) const {return _strValue;}
         virtual eOperandType getType(void) const {return eOperandType::Int_16;}
         virtual int getPrecision(void) const {return (0);}
 };
@@ -46,8 +48,9 @@ class Int32 : public Operators
         Int32 &operator=(Int32 const &e);
     
     private:
-        std::string _value;
-        virtual std::string const & toString(void) const {return _value;}
+        int32_t _value;
+        std::string _strValue;
+        virtual std::string const & toString(void) const {return _strValue;}
         virtual eOperandType getType(void) const {return eOperandType::Int_32;}
         virtual int getPrecision(void) const {return (0);}
 };
@@ -62,8 +65,9 @@ class Float : public Operators
         Float &operator=(Float const &e);
     
     private:
-        std::string _value;
-        virtual std::string const & toString(void) const {return _value;}
+        float _value;
+        std::string _strValue;
+        virtual std::string const & toString(void) const {return _strValue;}
         virtual eOperandType getType(void) const {return eOperandType::Float_;}
         virtual int getPrecision(void) const {return (7);}
 };
@@ -78,8 +82,9 @@ class Double : public Operators
         Double &operator=(Double const &e);
     
     private:
-        std::string _value;
-        virtual std::string const & toString(void) const {return _value;}
+        double _value;
+        std::string _strValue;
+        virtual std::string const & toString(void) const {return _strValue;}
         virtual eOperandType getType(void) const {return eOperandType::Double_;}
         virtual int getPrecision(void) const {return (15);}
 };

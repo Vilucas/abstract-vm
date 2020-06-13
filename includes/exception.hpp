@@ -41,7 +41,6 @@ class PopWithEmptyStackException : public std::exception
         virtual const char * what() const throw() {
             return ("Trying to pop item in an empty stack, Exiting...");
         }
-
 };
 
 class AssertErrorException : public std::exception
@@ -65,7 +64,7 @@ class OverflowErrorException : public std::exception
 {
     public:
         virtual const char * what() const throw() {
-            return ("Overflow error, Exiting...");
+            return ("Overflow or underflow error, Exiting...");
         }
 };
 

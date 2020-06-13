@@ -10,7 +10,7 @@ IOperand::IOperand(IOperand const &src) {
 
 
 IOperand::~IOperand(){
-    std::cout << "destru for IOperand" << std::endl;
+    //std::cout << "destru for IOperand" << std::endl;
 }
 
 IOperand & IOperand::operator=(IOperand const &rhs) {

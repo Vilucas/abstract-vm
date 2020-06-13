@@ -44,8 +44,7 @@ int main(int argc, char ** argv)
         if (parsing(lm.line) == true)
         {
             lm.rawInstructionsBoard = instructionParsing(lm);
-            print("Pass Parsing");
-            instructions(lm, Stack);
+            Stack.launcher(lm);
         }
     }
     noExit();

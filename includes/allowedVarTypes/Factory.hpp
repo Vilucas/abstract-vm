@@ -24,5 +24,5 @@ class Factory
         IOperand const * createDouble( std::string const & value ) const;
         std::map < eOperandType, IOperand const *(Factory::*)(std::string const &value) const> _table;
 };
-        
+
 #endif
