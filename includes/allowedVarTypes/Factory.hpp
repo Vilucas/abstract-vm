@@ -4,6 +4,7 @@
 #include "Master.hpp"
 #include "variableDefinition.hpp"
 #include  <map>
+#include "float.h"
 
 class Factory 
 {
@@ -25,4 +26,6 @@ class Factory
         std::map < eOperandType, IOperand const *(Factory::*)(std::string const &value) const> _table;
 };
 
+template<typename T>
+void             TestOverflows(std::string const & value);
 #endif

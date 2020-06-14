@@ -1,14 +1,15 @@
 #include <fstream>
+#include <iostream>
 #include "vm.hpp"
 #include "stack.hpp"
 #include "exception.hpp"
 
 void    checkArg(std::ifstream &fd, int argc, char **argv)
 {
-    if (argc != 2)
+    if (argc > 2)
     {
         print(usage);
-        exit (-1);
+        exit (1);
     }
     try {
     fd.open(argv[1]);
@@ -31,13 +32,11 @@ void    noExit(void)
     }
 }
 
-int main(int argc, char ** argv)
+void    readFromArg(std::ifstream &fd)
 {
-    std::ifstream           fd;
     linesManagement         lm;
     stack                   Stack;
 
-    checkArg(fd, argc, argv);
     while (std::getline(fd,  lm.line))
     {
         lm.line_count += 1;
@@ -46,6 +45,32 @@ int main(int argc, char ** argv)
             lm.rawInstructionsBoard = instructionParsing(lm);
             Stack.launcher(lm);
         }
+    }
+    noExit();
+}
+
+int main(int argc, char ** argv)
+{
+    std::ifstream           fd;
+    std::istream            &standartInput = std::cin;
+    linesManagement         lm;
+    stack                   Stack;
+
+    if (argc >= 2)
+    {
+        checkArg(fd, argc, argv);
+        readFromArg(fd);
+    }
+    std::cout << "$> ";
+    while (std::getline(standartInput,  lm.line))
+    {
+        lm.line_count += 1;
+        if (parsing(lm.line) == true)
+        {
+            lm.rawInstructionsBoard = instructionParsing(lm);
+            Stack.launcher(lm);
+        }
+        std::cout << "$> ";
     }
     noExit();
     return (0);

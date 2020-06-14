@@ -12,20 +12,17 @@ class stack
 {
     public:
         void push(linesManagement &lm);
-        void vmExit();
-        void pop();
-        void dump();
+        void vmExit(void);
+        void pop(void);
+        void dump(void);
         void (assert)(linesManagement &lm);
         void (print)(void);
-        
-        void add();
-        /*
+        void add(void);
         void sub(void);
         void mul(void);
         void div(void);
         void mod(void);
-        */
-        stack();
+        stack(void);
         stack(stack const &s);
         stack & operator=(stack const &src);
         virtual ~stack();
@@ -39,7 +36,14 @@ class stack
                 {"dump", &stack::dump},
                 {"print", &stack::print},
                 {"add", &stack::add},
+                {"sub", &stack::sub},
+                {"mul", &stack::mul},
+                {"div", &stack::div},
+                {"mod", &stack::mod}
         };
 };
+
+// src/parsing/ValueParsing.cpp
+eOperandType ValueLexing(std::vector<std::string> &tab, std::string *value, size_t lineCount);
 
 #endif

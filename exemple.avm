@@ -10,16 +10,14 @@
 ;   
   ;ffedgf 
   ;
-push float(-978324)
-push float(-12362345273146)
-push int32(23) 
-push double(1234)
-push double(-332)
-push int32(3d3)
-add ;fwefwefewfew;
+pop
+push int8(4)
+push int16(33)
+
+dump
+add ;poney
+dump
 push float(44.55)
-assert
-mul
 push double(42.42)
 push int32(42)
 dump

@@ -1,44 +1,8 @@
 #include "stack.hpp"
 #include "exception.hpp"
 #include "Factory.hpp"
-
 #include "variableDefinition.hpp"
 
-std::string   parseValue(std::string s, size_t lineCount)
-{
-    if (s.empty() || s.back() != ')' || (s.size() == 1))
-        throw(LexicalErrorException(lineCount));
-    s.pop_back(); // delete closing bracket
-    if (s[0] == '-' && s.size() == 1) //test if user is trying to screw me over
-            throw(LexicalErrorException(lineCount));
-    for (size_t i = 0; i < s.size(); i++)
-        if (std::isdigit(s[i]) == 0) // isdigit returns non 0 value if the param IS a digit 
-        {
-            if (s[i] != '-' || (s[i] == '-' && i > 0)) //handling neg values
-                throw(LexicalErrorException(lineCount));
-        }
-    return s;
-}
-
-//compare the value of the input with all the available variable types. exit() if fails to find a valid one
-eOperandType ValueLexing(std::vector<std::string> &tab, std::string *value, size_t lineCount)
-{
-    std::vector<std::string> typeBoard = {
-        "int8(", "int16(", 
-        "int32(", "float(",
-        "double(" };
-
-    if (tab.size() != 2)
-        throw (LexicalErrorException(lineCount));
-    for (size_t i = 0 ; i < typeBoard.size(); i++)
-        if (std::strncmp(tab[1].c_str(), typeBoard[i].c_str(), typeBoard[i].size()) == 0)
-        {
-            *value = tab[1].substr(typeBoard[i].size(), tab[1].size() - (typeBoard[i]).size());
-            *value = parseValue(*value, lineCount); // modify the variable to get the value between the brackets
-            return eOperandType(i);
-        }
-    throw(LexicalErrorException(lineCount));
-}
 
 void    stack::push(linesManagement &lm)
 {
@@ -48,7 +12,11 @@ void    stack::push(linesManagement &lm)
     
     try {
         type = ValueLexing(lm.rawInstructionsBoard, &value, lm.line_count); //get value and type
+        // src/parsing/ValueParsing.cpp
     } catch (LexicalErrorException &e) {
+        std::cout << e.what() << std::endl;
+        exit(1);
+    } catch (PrecisionExceptionError &e) {
         std::cout << e.what() << std::endl;
         exit(1);
     }
@@ -56,6 +24,11 @@ void    stack::push(linesManagement &lm)
 }
 
 void stack::vmExit(){
+    if (this->_stack.empty() == true)
+        exit(0);
+    std::list<IOperand const*>::iterator it = this->_stack.begin();
+    for (it = this->_stack.begin(); it != this->_stack.end(); it++)
+        delete *it;
     exit(0);
 }
 
@@ -86,7 +59,7 @@ void stack::dump()  {
     for (it = this->_stack.begin(); it != this->_stack.end(); it++)
     {
         elem++;
-        std::cout << "Elem: " << elem << " : " << (*it)->toString() << std::endl;
+        std::cout << "Elem " << elem << ": " << (*it)->toString() << std::endl;
     }   
 }
 
@@ -134,33 +107,88 @@ void stack::add(void)
         std::cout << s.what() << std::endl;
         exit(1);
     }
-    const IOperand *a = (*this->_stack.begin());
+    std::list<IOperand const *>::iterator it = this->_stack.begin();
+    const IOperand *a = *it;
+    const IOperand *b = *(++it);
+    const IOperand *c = (*a) + (*b);
     this->pop();
-    const IOperand *b = (*this->_stack.begin());
     this->pop();
-    const IOperand *c = *a + *b;
     this->_stack.push_front(c);
-    delete a;
-    delete b;
 }
-/*
+
 void stack::sub(void)
 {
-    return;
+    try {
+        if (this->_stack.size() < 2)
+            throw(AddErrorException());
+    }
+    catch (AddErrorException &s) {
+        std::cout << s.what() << std::endl;
+        exit(1);
+    }
+    std::list<IOperand const *>::iterator it = this->_stack.begin();
+    const IOperand *a = *it;
+    const IOperand *b = *(++it);
+    const IOperand *c = (*a) - (*b);
+    this->pop();
+    this->pop();
+    this->_stack.push_front(c);
 }
 
 void stack::mul(void)
 {
+     try {
+        if (this->_stack.size() < 2)
+            throw(AddErrorException());
+    }
+    catch (AddErrorException &s) {
+        std::cout << s.what() << std::endl;
+        exit(1);
+    }
+    std::list<IOperand const *>::iterator it = this->_stack.begin();
+    const IOperand *a = *it;
+    const IOperand *b = *(++it);
+    const IOperand *c = (*a) * (*b);
+    this->pop();
+    this->pop();
+    this->_stack.push_front(c);
+
 }
-void stack::div(void) const
+
+void stack::div(void)
 {
+     try {
+        if (this->_stack.size() < 2)
+            throw(AddErrorException());
+    }
+    catch (AddErrorException &s) {
+        std::cout << s.what() << std::endl;
+        exit(1);
+    }
+    std::list<IOperand const *>::iterator it = this->_stack.begin();
+    const IOperand *a = *it;
+    const IOperand *b = *(++it);
+    const IOperand *c = (*a) / (*b);
+    this->pop();
+    this->pop();
+    this->_stack.push_front(c);
 }
 
 void stack::mod(void)
 {
-
-
+    try {
+        if (this->_stack.size() < 2)
+            throw(AddErrorException());
+    }
+    catch (AddErrorException &s) {
+        std::cout << s.what() << std::endl;
+        exit(1);
+    }
+    std::list<IOperand const *>::iterator it = this->_stack.begin();
+    const IOperand *a = *it;
+    const IOperand *b = *(++it);
+    const IOperand *c = (*a) % (*b);
+    this->pop();
+    this->pop();
+    this->_stack.push_front(c);
 }
-
-
-*/

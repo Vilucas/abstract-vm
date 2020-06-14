@@ -19,8 +19,6 @@ class Operators : public IOperand {
         virtual IOperand const * operator/( IOperand const & rhs ) const; // Quotient
         virtual IOperand const * operator%( IOperand const & rhs ) const; // Modulo
         virtual std::string const & toString( void ) const = 0; // String representation of the instance
-
-        
 };
 
 #endif

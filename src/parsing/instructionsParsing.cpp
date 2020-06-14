@@ -41,7 +41,7 @@ std::vector<std::string>     slicingBySpaces(linesManagement lm)
         "add", "sub",
         "mul", "div",
         "mod", "print",
-        "exit" };
+        "exit"};
     
     std::vector<std::string> ret = splitString(lm.line);
     std::vector<std::string>::iterator it = ret.begin();
@@ -52,7 +52,6 @@ std::vector<std::string>     slicingBySpaces(linesManagement lm)
     if ((found = std::find(instructionBoard.begin(), 
         instructionBoard.end(), *it) != instructionBoard.end()) == false)
             throw(LexicalErrorException(lm.line_count));
-    //std::cout << *it << found << std::endl;
     return ret;   
 }
 

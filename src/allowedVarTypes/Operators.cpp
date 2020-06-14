@@ -1,8 +1,5 @@
 #include "Operators.hpp"
 #include "Factory.hpp"
-#include <limits>
-#include <math.h>
-#include <float.h>
 #include "exception.hpp"
 
 Operators::Operators(){}
@@ -45,6 +42,14 @@ IOperand const *Operators::operator*(IOperand const &rhs) const
 IOperand const *Operators::operator/(IOperand const &rhs) const
 {
     Factory f;
+
+    try {
+    if (std::stod(rhs.toString()) == 0)
+        throw(DivideByZeroException());
+    } catch (DivideByZeroException &s) {
+        std::cout << s.what() << std::endl;
+        exit(1);
+    }
     eOperandType type = std::max(rhs.getType(), this->getType());
     std::string const &str = std::to_string(std::stod(rhs.toString()) / std::stod(this->toString()));
     const IOperand *ret = f.createOperand(type, str);
@@ -54,6 +59,14 @@ IOperand const *Operators::operator/(IOperand const &rhs) const
 IOperand const *Operators::operator%(IOperand const &rhs) const
 {
     Factory f;
+
+    try {
+    if (std::stod(rhs.toString()) == 0)
+        throw(DivideByZeroException());
+    } catch (DivideByZeroException &s) {
+        std::cout << s.what() << std::endl;
+        exit(1);
+    }
     eOperandType type = std::max(rhs.getType(), this->getType());
     std::string const &str = std::to_string((std::stoi(rhs.toString())) % (std::stoi(this->toString())));
     const IOperand *ret = f.createOperand(type, str);

@@ -31,7 +31,7 @@ class NoExitException: public std::exception
 {
     public:
         virtual const char * what() const throw() {
-            return ("No exit found in instruction file, Exiting...");
+            return ("No exit found in instruction file, Exiting...? :)");
         }
 };
 
@@ -39,7 +39,7 @@ class PopWithEmptyStackException : public std::exception
 {
     public:
         virtual const char * what() const throw() {
-            return ("Trying to pop item in an empty stack, Exiting...");
+            return ("Trying to pop an item when stack is empty, Exiting...");
         }
 };
 
@@ -55,9 +55,17 @@ class AddErrorException : public std::exception
 {
     public:
         virtual const char * what() const throw() {
-            return ("Error: add() on a stack with less than two items, Exiting...");
+            return ("Error: add instructuion on a stack with less than two items, Exiting...");
         }
 
+};
+
+class DivideByZeroException : public std::exception
+{
+    public:
+        virtual const char * what() const throw() {
+            return ("Division by zero, Exiting");
+        }
 };
 
 class OverflowErrorException : public std::exception
@@ -75,4 +83,13 @@ class UnderflowErrorException : public std::exception
             return ("Underflow error, Exiting...");
         } 
 };
+
+class PrecisionExceptionError : public std::exception
+{
+    public:
+        virtual const char * what() const throw() {
+            return ("This type can't handle that precision");
+        }
+};
+
 #endif

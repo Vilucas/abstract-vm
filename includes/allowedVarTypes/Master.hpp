@@ -1,9 +1,11 @@
 #ifndef MASTER_HPP
 #define MASTER_HPP
 
-//#include <eOperandType.hpp>
 #include <iostream>
 
+#define PRECISION_INT 0
+#define PRECISION_FLOAT 7
+#define PRECISION_DOUBLE 15
 
 enum eOperandType {
     Int_8, 
