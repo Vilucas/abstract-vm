@@ -29,6 +29,7 @@ class IOperand {
         IOperand( void );
         IOperand(IOperand const &src);
         IOperand &operator=(IOperand const &e);
+        
 };
 
 

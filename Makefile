@@ -1,4 +1,4 @@
-NAME = abstract_vm
+NAME = vm
 
 FLAGS = -std=c++2a -Wall -Wextra -Werror
 

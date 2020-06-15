@@ -37,6 +37,7 @@ void    readFromArg(std::ifstream &fd)
     linesManagement         lm;
     stack                   Stack;
 
+    lm.line_count = 0;
     while (std::getline(fd,  lm.line))
     {
         lm.line_count += 1;
@@ -55,7 +56,7 @@ int main(int argc, char ** argv)
     std::istream            &standartInput = std::cin;
     linesManagement         lm;
     stack                   Stack;
-
+    
     if (argc >= 2)
     {
         checkArg(fd, argc, argv);

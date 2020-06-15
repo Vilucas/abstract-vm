@@ -51,11 +51,11 @@ class AssertErrorException : public std::exception
         }
 };
 
-class AddErrorException : public std::exception
+class EmptyStackException : public std::exception
 {
     public:
         virtual const char * what() const throw() {
-            return ("Error: add instructuion on a stack with less than two items, Exiting...");
+            return ("Error: Not enough items in the stack, Exiting...");
         }
 
 };
@@ -91,5 +91,7 @@ class PrecisionExceptionError : public std::exception
             return ("This type can't handle that precision");
         }
 };
+
+
 
 #endif

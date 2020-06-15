@@ -4,6 +4,18 @@
 #include "variableDefinition.hpp"
 
 
+void    stack::checkIfEmpty(size_t itemNeeded) //check if stack has enough elems to execute instruction
+{
+    try {
+        if (this->_stack.empty() == true || this->_stack.size() < itemNeeded)
+            throw(EmptyStackException());
+    }
+    catch (EmptyStackException &s) {
+        std::cout << s.what() << std::endl;
+        exit(1);
+    }
+}
+
 void    stack::push(linesManagement &lm)
 {
     std::string     value;
@@ -24,6 +36,7 @@ void    stack::push(linesManagement &lm)
 }
 
 void stack::vmExit(){
+    print(this->_stack.size());
     if (this->_stack.empty() == true)
         exit(0);
     std::list<IOperand const*>::iterator it = this->_stack.begin();
@@ -34,14 +47,7 @@ void stack::vmExit(){
 
 //delete top of the stack element
 void stack::pop() {
-    try {
-        if (this->_stack.empty() == true)
-            throw(PopWithEmptyStackException());
-    }
-    catch (PopWithEmptyStackException &e) {
-        std::cout << e.what() << std::endl;
-        exit(1);
-    }
+    checkIfEmpty(1);
     const IOperand *del = (*this->_stack.begin());
     this->_stack.erase(this->_stack.begin());
     delete del;
@@ -49,27 +55,23 @@ void stack::pop() {
 
 //print the whole stack starting by newest elem
 void stack::dump()  {
-    if (this->_stack.empty())
-    {
-        std::cout << "Stack is empty" << std::endl;
-        return;
-    }
+    checkIfEmpty(1);
     std::list<IOperand const *>::iterator it = this->_stack.begin();
     size_t elem = 0;
     for (it = this->_stack.begin(); it != this->_stack.end(); it++)
     {
         elem++;
-        std::cout << "Elem " << elem << ": " << (*it)->toString() << std::endl;
+        std::cout << (*it)->toString() << std::endl;
     }   
 }
 
 //Check if top stack elem has same value than the param
 void   (stack::assert)(linesManagement &lm) 
 {
-    std::string value;
-    eOperandType type = ValueLexing(lm.rawInstructionsBoard, &value, lm.line_count);
-
+    checkIfEmpty(1);
     try {
+        std::string value;
+        eOperandType type = ValueLexing(lm.rawInstructionsBoard, &value, lm.line_count);
         if (std::strcmp(value.c_str(), (*this->_stack.begin())->toString().c_str()) != 0)
             throw(AssertErrorException());
         if (type != (*this->_stack.begin())->getType())
@@ -77,12 +79,19 @@ void   (stack::assert)(linesManagement &lm)
     } catch(AssertErrorException &s) {
         std::cout << s.what() << std::endl;
         exit(1);
+    } catch (LexicalErrorException &e) {
+        std::cout << e.what() << std::endl;
+        exit(1);
+    } catch (PrecisionExceptionError &e) {
+        std::cout << e.what() << std::endl;
+        exit(1);
     }
 }
 
 // displays the character corresponding to the first elem's value on the standard output.
 void (stack::print)(void)
 {
+    checkIfEmpty(1);
     std::list<IOperand const *>::iterator it = this->_stack.begin();
     try {
         if ((*this->_stack.begin())->getType() != eOperandType::Int_8)
@@ -96,99 +105,97 @@ void (stack::print)(void)
     printf("%c\n", char(stoi((*it)->toString())));
 }
 
+
+
+/*
+**  Theses arithmetic functions are very long and unclean because the subject made it MANDATORY
+**  to create the Operands with the factory function which take a std::string const & and a eOperand type
+*/
+
 //Add two first elem's value and replace them with the result
 void stack::add(void)
 {
-    try {
-        if (this->_stack.size() < 2)
-            throw(AddErrorException());
-    }
-    catch (AddErrorException &s) {
-        std::cout << s.what() << std::endl;
-        exit(1);
-    }
+    Factory f;
+
+    checkIfEmpty(2);
     std::list<IOperand const *>::iterator it = this->_stack.begin();
     const IOperand *a = *it;
     const IOperand *b = *(++it);
     const IOperand *c = (*a) + (*b);
+    size_t maxPrecision = std::max(a->getPrecision(), b->getPrecision());
     this->pop();
     this->pop();
-    this->_stack.push_front(c);
+    
+    if (maxPrecision > 0) 
+        this->_stack.push_front(f.createOperand(eOperandType(2), c->toString()));
+    else 
+        this->_stack.push_front(f.createOperand(eOperandType(4), c->toString()));
 }
 
 void stack::sub(void)
 {
-    try {
-        if (this->_stack.size() < 2)
-            throw(AddErrorException());
-    }
-    catch (AddErrorException &s) {
-        std::cout << s.what() << std::endl;
-        exit(1);
-    }
+    Factory f;
+
+    checkIfEmpty(2);
     std::list<IOperand const *>::iterator it = this->_stack.begin();
     const IOperand *a = *it;
     const IOperand *b = *(++it);
     const IOperand *c = (*a) - (*b);
+    size_t maxPrecision = std::max(a->getPrecision(), b->getPrecision());
     this->pop();
     this->pop();
-    this->_stack.push_front(c);
+    if (maxPrecision > 0) 
+        this->_stack.push_front(f.createOperand(eOperandType(2), c->toString()));
+    else 
+        this->_stack.push_front(f.createOperand(eOperandType(4), c->toString()));
 }
 
 void stack::mul(void)
 {
-     try {
-        if (this->_stack.size() < 2)
-            throw(AddErrorException());
-    }
-    catch (AddErrorException &s) {
-        std::cout << s.what() << std::endl;
-        exit(1);
-    }
+    Factory f;
+
+    checkIfEmpty(2);
     std::list<IOperand const *>::iterator it = this->_stack.begin();
     const IOperand *a = *it;
     const IOperand *b = *(++it);
     const IOperand *c = (*a) * (*b);
+    size_t maxPrecision = std::max(a->getPrecision(), b->getPrecision());
     this->pop();
     this->pop();
-    this->_stack.push_front(c);
-
+    if (maxPrecision > 0) 
+        this->_stack.push_front(f.createOperand(eOperandType(2), c->toString()));
+    else 
+        this->_stack.push_front(f.createOperand(eOperandType(4), c->toString()));
 }
 
 void stack::div(void)
 {
-     try {
-        if (this->_stack.size() < 2)
-            throw(AddErrorException());
-    }
-    catch (AddErrorException &s) {
-        std::cout << s.what() << std::endl;
-        exit(1);
-    }
+    Factory f;
+
+    checkIfEmpty(2);
     std::list<IOperand const *>::iterator it = this->_stack.begin();
     const IOperand *a = *it;
     const IOperand *b = *(++it);
     const IOperand *c = (*a) / (*b);
+    size_t maxPrecision = std::max(a->getPrecision(), b->getPrecision());
     this->pop();
     this->pop();
-    this->_stack.push_front(c);
+    if (maxPrecision > 0) 
+        this->_stack.push_front(f.createOperand(eOperandType(2), c->toString()));
+    else 
+        this->_stack.push_front(f.createOperand(eOperandType(4), c->toString()));
 }
 
 void stack::mod(void)
 {
-    try {
-        if (this->_stack.size() < 2)
-            throw(AddErrorException());
-    }
-    catch (AddErrorException &s) {
-        std::cout << s.what() << std::endl;
-        exit(1);
-    }
+    Factory f;
+
+    checkIfEmpty(2);
     std::list<IOperand const *>::iterator it = this->_stack.begin();
     const IOperand *a = *it;
     const IOperand *b = *(++it);
     const IOperand *c = (*a) % (*b);
     this->pop();
     this->pop();
-    this->_stack.push_front(c);
-}
+    this->_stack.push_front(f.createOperand(eOperandType(2), c->toString()));
+} // When back test float % float

@@ -27,6 +27,7 @@ class stack
         stack & operator=(stack const &src);
         virtual ~stack();
         void    launcher(linesManagement lm);
+        void    checkIfEmpty(size_t itemNeeded);
 
     private:
         std::list<IOperand const *> _stack;

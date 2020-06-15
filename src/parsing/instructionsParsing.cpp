@@ -34,7 +34,7 @@ void    checkType(std::list<std::string> ret)
     */
 
 
-std::vector<std::string>     slicingBySpaces(linesManagement lm)
+std::vector<std::string>     slicingBySpaces(linesManagement const &lm)
 {
     std::list<std::string> instructionBoard = { "push", "pop",
         "dump", "assert",
@@ -42,7 +42,6 @@ std::vector<std::string>     slicingBySpaces(linesManagement lm)
         "mul", "div",
         "mod", "print",
         "exit"};
-    
     std::vector<std::string> ret = splitString(lm.line);
     std::vector<std::string>::iterator it = ret.begin();
 
@@ -55,7 +54,7 @@ std::vector<std::string>     slicingBySpaces(linesManagement lm)
     return ret;   
 }
 
-std::vector<std::string>  instructionParsing(linesManagement lm)
+std::vector<std::string>  instructionParsing(linesManagement const &lm)
 {
     try {
         std::vector<std::string> board = slicingBySpaces(lm);

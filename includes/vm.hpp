@@ -25,8 +25,8 @@ class    linesManagement
 };
 
 
-bool    parsing(std::string &line);
-std::vector<std::string>  instructionParsing(linesManagement lm);
-size_t countSpacesAhead(std::string tmp_line, size_t pos);
+bool                        parsing(std::string &line);
+std::vector<std::string>    instructionParsing(linesManagement const &lm);
+size_t                      countSpacesAhead(std::string tmp_line, size_t pos);
 
 #endif

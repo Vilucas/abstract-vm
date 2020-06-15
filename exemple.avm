@@ -1,26 +1,16 @@
-; -------------
-; exemple.avm -
-; -------------
-;first ignore line if it's a comment
-; then 2 groups i guess ->
-; 1st grp is the one of the instructions
-;stack is a class 
-;error is a class
-;clean output is a class;
-;   
-  ;ffedgf 
-  ;
+push int8(33) ;comment de chienne
+push int8(112) ;comment de chienne
+push int8(111) ;comment de chienne
+push int8(108) ;comment de chienne
+push int8(112) ;comment de chienne
+print
 pop
-push int8(4)
-push int16(33)
-
-dump
-add ;poney
-dump
-push float(44.55)
-push double(42.42)
-push int32(42)
-dump
+print
 pop
-assert double(42.42)
-exit
+print
+pop
+print
+pop
+print
+pop
+print

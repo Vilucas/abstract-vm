@@ -15,6 +15,7 @@ class Int8 : public Operators
     
     private:
         std::string _strValue;
+        int         _value;
         virtual std::string const & toString(void) const {return _strValue;}
         virtual eOperandType getType(void) const {return eOperandType::Int_8;}
         virtual int getPrecision(void) const {return (PRECISION_INT);}
@@ -31,6 +32,7 @@ class Int16 : public Operators
     
     private:
         std::string _strValue;
+        int         _value;
         virtual std::string const &toString(void) const {return _strValue;}
         virtual eOperandType getType(void) const {return eOperandType::Int_16;}
         virtual int getPrecision(void) const {return (PRECISION_INT);}
@@ -47,9 +49,11 @@ class Int32 : public Operators
     
     private:
         std::string _strValue;
+        int         _value;
         virtual std::string const & toString(void) const {return _strValue;}
         virtual eOperandType getType(void) const {return eOperandType::Int_32;}
         virtual int getPrecision(void) const {return (PRECISION_INT);}
+        int         getValue(void);
 };
 
 class Float : public Operators
@@ -63,9 +67,11 @@ class Float : public Operators
     
     private:
         std::string _strValue;
+        double      _value;
         virtual std::string const & toString(void) const {return _strValue;}
         virtual eOperandType getType(void) const {return eOperandType::Float_;}
         virtual int getPrecision(void) const {return (PRECISION_FLOAT);}
+        double         getValue(void);
 };
 
 class Double : public Operators
@@ -79,8 +85,10 @@ class Double : public Operators
     
     private:
         std::string _strValue;
+        double      _value;
         virtual std::string const & toString(void) const {return _strValue;}
         virtual eOperandType getType(void) const {return eOperandType::Double_;}
         virtual int getPrecision(void) const {return (PRECISION_DOUBLE);}
+        double         getValue(void);
 };
 #endif
