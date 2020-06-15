@@ -4,7 +4,7 @@ FLAGS = -std=c++2a -Wall -Wextra -Werror
 
 SRC = vm.cpp \
 		parsing/parsing.cpp \
-		parsing/instructionsParsing.cpp \
+		parsing/lexing.cpp \
 		parsing/ValueParsing.cpp \
 		stack/stack.cpp \
 		stack/launcher.stack.cpp \

@@ -43,7 +43,7 @@ void    readFromArg(std::ifstream &fd)
         lm.line_count += 1;
         if (parsing(lm.line) == true)
         {
-            lm.rawInstructionsBoard = instructionParsing(lm);
+            lm.rawInstructionsBoard = lexer(lm);
             Stack.launcher(lm);
         }
     }
@@ -68,7 +68,7 @@ int main(int argc, char ** argv)
         lm.line_count += 1;
         if (parsing(lm.line) == true)
         {
-            lm.rawInstructionsBoard = instructionParsing(lm);
+            lm.rawInstructionsBoard = lexer(lm);
             Stack.launcher(lm);
         }
         std::cout << "$> ";

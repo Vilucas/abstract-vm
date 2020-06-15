@@ -24,15 +24,6 @@ std::vector<std::string>  splitString(std::string line)
     }
     return (ret);
 }
-/*
-void    checkType(std::list<std::string> ret)
-{
-
-    if ret[0] diff of the two isntructions thatb take param -> false
-    if ret[1] is not a correct type -> false
-    if whats insine the ret[1] parenthesis is bullshit -> false
-    */
-
 
 std::vector<std::string>     slicingBySpaces(linesManagement const &lm)
 {
@@ -54,7 +45,7 @@ std::vector<std::string>     slicingBySpaces(linesManagement const &lm)
     return ret;   
 }
 
-std::vector<std::string>  instructionParsing(linesManagement const &lm)
+std::vector<std::string>  lexer(linesManagement const &lm)
 {
     try {
         std::vector<std::string> board = slicingBySpaces(lm);

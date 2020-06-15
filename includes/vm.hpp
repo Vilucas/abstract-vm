@@ -26,7 +26,7 @@ class    linesManagement
 
 
 bool                        parsing(std::string &line);
-std::vector<std::string>    instructionParsing(linesManagement const &lm);
+std::vector<std::string>    lexer(linesManagement const &lm);
 size_t                      countSpacesAhead(std::string tmp_line, size_t pos);
 
 #endif
