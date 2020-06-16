@@ -8,7 +8,9 @@ void    stack::checkIfEmpty(size_t itemNeeded) //check if stack has enough elems
 {
     try {
         if (this->_stack.empty() == true || this->_stack.size() < itemNeeded)
+        {
             throw(EmptyStackException());
+        }
     }
     catch (EmptyStackException &s) {
         std::cout << s.what() << std::endl;
@@ -36,7 +38,6 @@ void    stack::push(linesManagement &lm)
 }
 
 void stack::vmExit(){
-    print(this->_stack.size());
     if (this->_stack.empty() == true)
         exit(0);
     std::list<IOperand const*>::iterator it = this->_stack.begin();
@@ -72,9 +73,8 @@ void   (stack::assert)(linesManagement &lm)
     try {
         std::string value;
         eOperandType type = ValueLexing(lm.rawInstructionsBoard, &value, lm.line_count);
+        (void)type;
         if (std::strcmp(value.c_str(), (*this->_stack.begin())->toString().c_str()) != 0)
-            throw(AssertErrorException());
-        if (type != (*this->_stack.begin())->getType())
             throw(AssertErrorException());
     } catch(AssertErrorException &s) {
         std::cout << s.what() << std::endl;
@@ -127,9 +127,9 @@ void stack::add(void)
     this->pop();
     
     if (maxPrecision > 0) 
-        this->_stack.push_front(f.createOperand(eOperandType(2), c->toString()));
-    else 
         this->_stack.push_front(f.createOperand(eOperandType(4), c->toString()));
+    else 
+        this->_stack.push_front(f.createOperand(eOperandType(2), c->toString()));
 }
 
 void stack::sub(void)
@@ -145,9 +145,9 @@ void stack::sub(void)
     this->pop();
     this->pop();
     if (maxPrecision > 0) 
-        this->_stack.push_front(f.createOperand(eOperandType(2), c->toString()));
-    else 
         this->_stack.push_front(f.createOperand(eOperandType(4), c->toString()));
+    else 
+        this->_stack.push_front(f.createOperand(eOperandType(2), c->toString()));
 }
 
 void stack::mul(void)
@@ -163,9 +163,9 @@ void stack::mul(void)
     this->pop();
     this->pop();
     if (maxPrecision > 0) 
-        this->_stack.push_front(f.createOperand(eOperandType(2), c->toString()));
-    else 
         this->_stack.push_front(f.createOperand(eOperandType(4), c->toString()));
+    else 
+        this->_stack.push_front(f.createOperand(eOperandType(2), c->toString()));
 }
 
 void stack::div(void)
@@ -181,9 +181,9 @@ void stack::div(void)
     this->pop();
     this->pop();
     if (maxPrecision > 0) 
-        this->_stack.push_front(f.createOperand(eOperandType(2), c->toString()));
-    else 
         this->_stack.push_front(f.createOperand(eOperandType(4), c->toString()));
+    else 
+        this->_stack.push_front(f.createOperand(eOperandType(2), c->toString()));
 }
 
 void stack::mod(void)

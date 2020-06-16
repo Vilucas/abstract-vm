@@ -31,7 +31,7 @@ class NoExitException: public std::exception
 {
     public:
         virtual const char * what() const throw() {
-            return ("No exit found in instruction file, Exiting...? :)");
+            return ("No exit found in instruction file, Exiting");
         }
 };
 

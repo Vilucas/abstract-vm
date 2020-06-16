@@ -29,6 +29,7 @@ void    noExit(void)
     }
     catch(NoExitException &e) {
         std::cerr << e.what() << std::endl;
+        exit(1);
     }
 }
 
@@ -57,6 +58,7 @@ int main(int argc, char ** argv)
     linesManagement         lm;
     stack                   Stack;
     
+    try {
     if (argc >= 2)
     {
         checkArg(fd, argc, argv);
@@ -74,5 +76,10 @@ int main(int argc, char ** argv)
         std::cout << "$> ";
     }
     noExit();
+    }
+    catch (std::exception &e) {
+        std::cout << e.what() << std::endl;
+        exit(1);
+    }
     return (0);
 }

@@ -32,7 +32,7 @@ void           ParseInvalidChars(std::string s, size_t lineCount)
                 throw(LexicalErrorException(lineCount));
 }
 
-//Parsing the argmuent value
+//Parsing the argmuent value # decided not to handle numvers with 000 before actual number , jsut user trying to fk me not interesting
 std::string   parseValue(std::string s, size_t lineCount, size_t typeNumber)
 {
     if (s.empty() || s.back() != ')' || (s.size() == 1))
