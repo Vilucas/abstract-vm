@@ -7,7 +7,7 @@ This project made me understand in depth how to support unlimited precision arit
   
 It's also a very good project to showcase my C++ skills at the date I created it, June 2020.  
   
-At the end of the project, the program will have the same behavior as ```man dc``` 
+At the end of the project, the program will have the same behavior as ```man dc``` with a different syntax
 
 ---
 ## Technical Infos and commands
