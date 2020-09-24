@@ -1,10 +1,11 @@
 # Abstract-vm
 <img src=".img/AbstractVM.png">
 The purpose of this project is to create a simple virtual machine that can
-interpret programs written in a basic assembly language.
-
-The interest of this project is to understand in depth how to support unlimited precision arithmetic between different types of variables.
-It's also a very good project to showcase my C++ skills at the date I created this project, June 2020.  
+interpret programs written in a basic assembly language.  
+  
+This project made me understand in depth how to support unlimited precision arithmetic between different types of variables.  
+  
+It's also a very good project to showcase my C++ skills at the date I created it, June 2020.  
   
 At the end of the project, the program will have the same behavior as ```man dc``` 
 
